@@ -122,6 +122,16 @@ void cd_init()
     cd_main_arena = arena_init(20000);
 }
 
+void cd_reset()
+{
+    arena_reset(&cd_main_arena);
+}
+
+void cd_destroy()
+{
+    arena_destroy(&cd_main_arena);
+}
+
 void cd_add_char(cd_val* root, str key, char* value, u32 len)
 {
     if (root->kind != CD_VALUE_ARRAY && root->kind != CD_VALUE_OBJECT) { return; }

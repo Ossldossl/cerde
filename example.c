@@ -22,4 +22,28 @@ int main()
     
     str result = cd_serialize(enemy);
     printf("%s", result.data);
+
+    cd_reset();
+    // create the root object
+    cd_val* root = cd_add_obj(null, make_sstr(""));
+    // now add children to it
+        cd_add(root, make_sstr("test_number"), 12.5678f);
+        cd_add(root, make_sstr("test_bool"), true);
+        // add an array as a child of the root
+        cd_val* temperatures_array = cd_add_array(root, make_sstr("temperatures"));
+            // make_sstr is a macro which expands to string + length of string. This macro only works for string literals
+            cd_add_element(temperatures_array, 15);
+            cd_add_element(temperatures_array, 16);
+            cd_add_element(temperatures_array, 17);
+            cd_add_element(temperatures_array, 18);
+            cd_add_element(temperatures_array, 19);
+            cd_add_element(temperatures_array, 21);
+            cd_add_element(temperatures_array, 22);
+            cd_add_element(temperatures_array, 23);
+            cd_add_element(temperatures_array, 24);
+
+    result = cd_serialize(root);
+    printf("\n---\n%s", result.data);
+
+    cd_destroy();
 }

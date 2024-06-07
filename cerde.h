@@ -119,6 +119,8 @@ typedef struct cd_val {
 } cd_val;
 
 void cd_init();
+void cd_reset();
+void cd_destroy();
 
 // Serialization
 #define cd_add_for_type(type) void cd_add_##type(cd_val* root, str key, type value);
