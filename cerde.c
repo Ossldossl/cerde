@@ -1,4 +1,5 @@
 #include "cerde.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -188,7 +189,14 @@ cd_add_val_impl(array, CD_VALUE_ARRAY);
 
 void cd_serialize_double(str_builder* result, double value)
 {
-    str_append(result, make_sstr("TODO"));
+    char buf[50];
+    int len = snprintf(buf, 50, "%lf", value);
+    char* end = &buf[len-1];
+    while (*end == '0') end--;
+    if (*end == '.') end--;
+    len = (u64)end - (u64)buf+1;
+    buf[len] = 0;
+    str_append_c(result, buf, len);
 }
 
 void cd_serialize_val(cd_val* val, str_builder* result, bool print_keys) 
